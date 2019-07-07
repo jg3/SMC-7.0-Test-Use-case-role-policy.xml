@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<role-based-policy name="Use Case Testing Policy" id="202">
+    <description>Use policy to proof out Insider Threat and alarms</description>
+    <categories>
+        <category name="high-exfiltration-index" enabled="true" alarm="true" alarm-id="45">
+            <tolerance-settings>
+                <setting name="tolerance" value="95" />
+                <setting name="min" value="1000" />
+                <setting name="max" value="10000" />
+            </tolerance-settings>
+            <mitigation start="0" action="1" duration="30" />
+        </category>
+        <category name="high-data-hoarding-index" enabled="true" alarm="true" alarm-id="52">
+            <tolerance-settings>
+                <setting name="tolerance" value="95" />
+                <setting name="min" value="1000" />
+                <setting name="max" value="10000" />
+            </tolerance-settings>
+            <mitigation start="0" action="1" duration="30" />
+        </category>
+        <category name="high-concern-index" enabled="true" alarm="true" alarm-id="32">
+            <tolerance-settings>
+                <setting name="tolerance" value="95" />
+                <setting name="min" value="1000" />
+                <setting name="max" value="25000" />
+            </tolerance-settings>
+            <mitigation start="0" action="1" duration="30" />
+        </category>
+        <category name="high-recon-index" enabled="true" alarm="true" alarm-id="51">
+            <tolerance-settings>
+                <setting name="tolerance" value="95" />
+                <setting name="min" value="1000" />
+                <setting name="max" value="25000" />
+            </tolerance-settings>
+            <mitigation start="0" action="1" duration="30" />
+        </category>
+    </categories>
+    <security-events>
+        <security-event name="address-scan-tcp" impactSourcePolicy="true" enableSource="true" alarmSource="true" impactTargetPolicy="true" enableTarget="true" alarmTarget="false" alarm-id="276" />
+        <security-event name="address-scan-udp" impactSourcePolicy="true" enableSource="true" alarmSource="true" impactTargetPolicy="true" enableTarget="true" alarmTarget="false" alarm-id="286" />
+        <security-event name="bot-infected-host" impactSourcePolicy="true" enableSource="true" alarmSource="true" impactTargetPolicy="true" enableTarget="true" alarmTarget="true" alarm-id="41">
+            <mitigation start="0" action="1" duration="60" />
+        </security-event>
+        <security-event name="bot-infected-host-controlled" impactSourcePolicy="true" enableSource="true" alarmSource="true" impactTargetPolicy="true" enableTarget="true" alarmTarget="true" alarm-id="42">
+            <custom-settings>
+                <setting name="full-match" value="false" type="boolean" />
+            </custom-settings>
+            <mitigation start="0" action="1" duration="60" />
+        </security-event>
+        <security-event name="brute-force-login" impactSourcePolicy="true" enableSource="true" alarmSource="true" impactTargetPolicy="true" enableTarget="true" alarmTarget="true" alarm-id="58">
+            <custom-settings>
+                <setting name="number-connections" value="4" type="long" />
+                <setting name="bytes-per-connection" value="100" type="long" />
+            </custom-settings>
+            <mitigation start="0" action="1" duration="10" />
+        </security-event>
+        <security-event name="fake-app-detect" impactSourcePolicy="true" enableSource="true" alarmSource="true" impactTargetPolicy="true" enableTarget="true" alarmTarget="true" alarm-id="62">
+            <mitigation start="0" action="1" duration="60" />
+        </security-event>
+        <security-event name="high-total-traffic" impactSourcePolicy="true" enableSource="true" alarmSource="true" impactTargetPolicy="true" enableTarget="true" alarmTarget="false" alarm-id="16">
+            <tolerance-settings>
+                <setting name="tolerance" value="70" />
+                <setting name="min" value="1000000" />
+                <setting name="max" value="10000000" />
+            </tolerance-settings>
+            <mitigation start="0" action="1" duration="60" />
+        </security-event>
+        <security-event name="max-flows-initiated" impactSourcePolicy="true" enableSource="true" alarmSource="true" impactTargetPolicy="true" enableTarget="true" alarmTarget="false" alarm-id="17">
+            <tolerance-settings>
+                <setting name="tolerance" value="75" />
+                <setting name="min" value="10" />
+                <setting name="max" value="100" />
+            </tolerance-settings>
+            <mitigation start="0" action="1" duration="10" />
+        </security-event>
+        <security-event name="max-flows-served" impactSourcePolicy="true" enableSource="true" alarmSource="false" impactTargetPolicy="true" enableTarget="true" alarmTarget="true" alarm-id="37">
+            <tolerance-settings>
+                <setting name="tolerance" value="75" />
+                <setting name="min" value="10" />
+                <setting name="max" value="100" />
+            </tolerance-settings>
+            <mitigation start="0" action="2" duration="10" />
+        </security-event>
+        <security-event name="suspect-data-hoarding" impactSourcePolicy="true" enableSource="true" alarmSource="true" impactTargetPolicy="true" enableTarget="true" alarmTarget="false" alarm-id="315">
+            <tolerance-settings>
+                <setting name="tolerance" value="92" />
+                <setting name="min" value="10000000" />
+                <setting name="max" value="20000000" />
+            </tolerance-settings>
+            <mitigation start="0" action="1" duration="60" />
+        </security-event>
+        <security-event name="data-loss" impactSourcePolicy="true" enableSource="true" alarmSource="true" impactTargetPolicy="true" enableTarget="true" alarmTarget="false" alarm-id="40">
+            <tolerance-settings>
+                <setting name="tolerance" value="75" />
+                <setting name="min" value="10000000" />
+                <setting name="max" value="20000000" />
+            </tolerance-settings>
+            <mitigation start="0" action="1" duration="60" />
+        </security-event>
+        <security-event name="suspect-long-flow" impactSourcePolicy="true" enableSource="true" alarmSource="true" impactTargetPolicy="true" enableTarget="true" alarmTarget="false" alarm-id="33">
+            <mitigation start="0" action="2" duration="1440" />
+        </security-event>
+        <security-event name="suspect-quiet-long-flow" impactSourcePolicy="true" enableSource="true" alarmSource="true" impactTargetPolicy="true" enableTarget="true" alarmTarget="true" alarm-id="48">
+            <mitigation start="0" action="2" duration="1440" />
+        </security-event>
+        <security-event name="worm-activity" impactSourcePolicy="true" enableSource="true" alarmSource="true" impactTargetPolicy="true" enableTarget="true" alarmTarget="true" alarm-id="35">
+            <mitigation start="0" action="1" duration="60" />
+        </security-event>
+        <security-event name="worm-propagation" impactSourcePolicy="true" enableSource="true" alarmSource="true" impactTargetPolicy="true" enableTarget="true" alarmTarget="true" alarm-id="36">
+            <mitigation start="0" action="1" duration="60" />
+        </security-event>
+    </security-events>
+</role-based-policy>
+
